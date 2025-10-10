@@ -2,8 +2,4 @@
 
 #### NFR1.1 — Візуалізація персоналізованого плану харчування
 
-<<<<<<< HEAD
 ![](https://www.plantuml.com/plantuml/png/ZLFBRjDG4DtxAqRPa4eeYihEKgLkMREi2ge4EyI2PXSgDJMjDnL65RH0SKD151P8E7wehX_fBvpv1Rw4CnUBfA8BhkNSUy-SCuyPPtrxjFLyjBtrTEIDFP7nmnwcA7HN9vYZHO9QZt79SyfpYn9NWclKTX7THq9cg45dRJNgUSA50pHtDFBbxteXlKUth8v-n20LsJVf2pEzPqYaZmhPYdyBuuHv7Ej4zwJFp1jo_g6yHcs58IFnnF-lj2wOLgs7DyhehmZETPyrvwmtq3sKn0sDaM3608d3qF0mqS1vMbjpsmQcz9ZJdhfKSfJ6tQJR3PoZSWhNJ0SxpM3Wjl63-rqlMCXtQt2CDtZ7wm7tBmHFyGCnaVU2AKu9n8Alt3xX6-qcY_dyz9sRNxkVMGPQIyUDRcxzHyfxoXmY8in6S2ayPxGQgq6v49zXPcAAAWtO_KX35A8l2RBFfaJ64Wl25URwQg4yCf0lDRwGKc9ceLhxkKP2F32vVNCKXak11rqNFn2hQUFCSONsp-HjJgl3uP09yI5XSqd3Bhobx0mVkRDpxCO5EnVw5j8DGLPHYqMqgToLUqFxl5EnR6pQNNuv2iOxNFAyuzcxuwq_UVRO_aQ_0G00)
-=======
-![](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/OS-IS/ai232-berlimenko/refs/heads/Laboratory_work_2/1.3-FuncNonFuncRequirements/1.3.3-NFRUserInterfaceOUTPUT/wireframe.puml?token=GHSAT0AAAAAADJ3UG6MYWMRQODEUNOALXS62G5KZQQ )
->>>>>>> b968858a49f7723f3848df2daab54ff69f7d79c7
