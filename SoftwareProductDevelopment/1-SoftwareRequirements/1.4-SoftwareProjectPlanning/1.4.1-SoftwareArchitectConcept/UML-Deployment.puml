@@ -1,0 +1,48 @@
+@startuml
+title UML-діаграма розгортання ПП
+
+' Задаем горизонтальное расположение узлов
+left to right direction
+
+skinparam componentStyle uml1
+
+' --- Узел 1: Смартфон (Клиент) ---
+node "<<Смартфон>>" as Smartphone {
+    ' Вложенная ОС
+    node "<<ОС Android>>" as Android {
+        ' Компонент (артефакт)
+        artifact " *:apk\n(Android Studio) " as APK
+    }
+}
+
+' Интерфейсы (Порты)
+' Используем круглые скобки "()" для компактного отображения порта, как на оригинальном рисунке
+() "Сенсорний\nекран" as Screen
+() "Мікрофон" as Mic
+
+' Связываем интерфейсы с ОС, которая их обслуживает
+Smartphone -- Screen
+Smartphone -- Mic
+
+' --- Узел 2: Сервер 2 (Приложение) ---
+node "<<сервер 2>>" as Server2 {
+    node "<<ОС Linux>>" as Linux2 {
+     node "<<Application Server Node.js (Express/Nest)>>" as AppServer {
+      artifact "*.js (Node.js Application)" as JSR
+        }
+    }
+}
+
+' --- Узел 3: Сервер 4 (База данных) ---
+node "<<сервер 4>>" as Server4 {
+    node "<<ОС Linux>>" as Linux4 {
+     node "<<Database Server MySQL>>" as DBServer {
+      database "Relational DataBase" as DB
+        }
+    }
+}
+
+' --- Соединения между узлами ---
+Smartphone -- Server2
+Server2 -- Server4
+@enduml
