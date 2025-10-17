@@ -11,3 +11,8 @@
 Файл містить повну ієрархічну JSON-схему:
 - [DataSchema.json](./DataSchema.json)
 
+
+#### Перевірка
+
+Перевірка Json Schema:
+![JsonSchemaValidator_Check.jpg](JsonSchemaValidator_Check.jpg)
