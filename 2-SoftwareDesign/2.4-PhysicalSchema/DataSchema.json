@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Користувач",
+  "description": "Ієрархічна JSON-схема даних користувача, його здоров’я, харчування та активностей",
+  "type": "object",
+  "properties": {
+    "користувач": {
+      "type": "object",
+      "description": "Основна інформація про користувача",
+      "properties": {
+        "ім’я": {
+          "type": "string",
+          "description": "Ім’я користувача",
+          "pattern": "^[А-Яа-яІіЇїЄєҐґ\\- ]+$",
+          "minLength": 2
+        },
+        "вік": {
+          "type": "integer",
+          "description": "Вік користувача",
+          "minimum": 1
+        },
+        "алергії": {
+          "type": "string",
+          "description": "Перелік алергій"
+        },
+        "ціль": {
+          "type": "string",
+          "description": "Ціль користувача",
+          "pattern": "^[А-Яа-яІіЇїЄєҐґ ]+$"
+        },
+        "даніПроЗдоров’я": {
+          "type": "object",
+          "description": "Фізичні показники користувача",
+          "properties": {
+            "вага": {
+              "type": "number",
+              "description": "Вага в кг",
+              "minimum": 1
+            },
+            "зріст": {
+              "type": "integer",
+              "description": "Зріст у см",
+              "minimum": 30
+            },
+            "індекс_маси_тіла": {
+              "type": "number",
+              "description": "ІМТ"
+            },
+            "рівень_активності": {
+              "type": "string",
+              "description": "Рівень фізичної активності"
+            },
+            "дієтичні_обмеження": {
+              "type": "string",
+              "description": "Обмеження в харчуванні"
+            }
+          },
+          "required": ["вага", "зріст"]
+        },
+        "планХарчування": {
+          "type": "object",
+          "description": "План харчування користувача",
+          "properties": {
+            "сніданок": { "type": "string" },
+            "обід": { "type": "string" },
+            "вечеря": { "type": "string" },
+            "калорійність": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": ["сніданок", "обід", "вечеря"]
+        },
+        "рекомендації": {
+          "type": "object",
+          "description": "Рекомендації щодо води та активності",
+          "properties": {
+            "обсяг_води_на_день": {
+              "type": "number",
+              "minimum": 0.5
+            },
+            "фізична_активність": {
+              "type": "string"
+            }
+          },
+          "required": ["обсяг_води_на_день"]
+        },
+        "досягнення": {
+          "type": "object",
+          "description": "Досягнення користувача",
+          "properties": {
+            "кількість_тренувань": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "виконані_вправи": {
+              "type": "string"
+            },
+            "нагороди": {
+              "type": "string"
+            }
+          }
+        },
+        "самоповага": {
+          "type": "object",
+          "description": "Оцінка самопочуття",
+          "properties": {
+            "рівень": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 10
+            },
+            "впевненість": {
+              "type": "string"
+            }
+          }
+        },
+        "танцювальніПодії": {
+          "type": "array",
+          "description": "Список відвіданих танцювальних подій",
+          "items": {
+            "type": "object",
+            "properties": {
+              "назва": { "type": "string" },
+              "тип_танцю": { "type": "string" },
+              "дата_проведення": {
+                "type": "string",
+                "format": "date"
+              },
+              "місце_проведення": { "type": "string" }
+            },
+            "required": ["назва", "дата_проведення"]
+          },
+          "minItems": 0
+        }
+      },
+      "required": ["ім’я", "вік", "ціль", "даніПроЗдоров’я"]
+    }
+  },
+  "required": ["користувач"]
+}

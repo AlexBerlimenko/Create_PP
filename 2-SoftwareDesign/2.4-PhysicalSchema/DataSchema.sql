@@ -1,4 +1,4 @@
--- Створення таблиці Користувач
+-- Таблиця Користувач
 CREATE TABLE Користувач (
     id INT PRIMARY KEY AUTO_INCREMENT,
     ім’я VARCHAR(100) NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE Користувач (
     ціль VARCHAR(100)
 );
 
--- Дані про здоров’я
+-- Таблиця ДаніПроЗдоров’я
 CREATE TABLE ДаніПроЗдоров’я (
     id INT PRIMARY KEY AUTO_INCREMENT,
     користувач_id INT,
@@ -19,46 +19,46 @@ CREATE TABLE ДаніПроЗдоров’я (
     FOREIGN KEY (користувач_id) REFERENCES Користувач(id)
 );
 
--- План харчування
+-- Таблиця ПланХарчування
 CREATE TABLE ПланХарчування (
     id INT PRIMARY KEY AUTO_INCREMENT,
     користувач_id INT,
     сніданок TEXT,
     обід TEXT,
     вечеря TEXT,
-    калорійність INT,
+    калорійність INT CHECK (калорійність > 0),
     FOREIGN KEY (користувач_id) REFERENCES Користувач(id)
 );
 
--- Рекомендації
+-- Таблиця Рекомендації
 CREATE TABLE Рекомендації (
     id INT PRIMARY KEY AUTO_INCREMENT,
     план_id INT,
-    обсяг_води_на_день FLOAT,
+    обсяг_води_на_день FLOAT CHECK (обсяг_води_на_день > 0),
     фізична_активність VARCHAR(100),
     FOREIGN KEY (план_id) REFERENCES ПланХарчування(id)
 );
 
--- Досягнення
+-- Таблиця Досягнення
 CREATE TABLE Досягнення (
     id INT PRIMARY KEY AUTO_INCREMENT,
     користувач_id INT,
-    кількість_тренувань INT,
+    кількість_тренувань INT CHECK (кількість_тренувань >= 0),
     виконані_вправи TEXT,
     нагороди TEXT,
     FOREIGN KEY (користувач_id) REFERENCES Користувач(id)
 );
 
--- Самоповага
+-- Таблиця Самоповага
 CREATE TABLE Самоповага (
     id INT PRIMARY KEY AUTO_INCREMENT,
     користувач_id INT,
-    рівень FLOAT,
+    рівень FLOAT CHECK (рівень BETWEEN 0 AND 10),
     впевненість VARCHAR(100),
     FOREIGN KEY (користувач_id) REFERENCES Користувач(id)
 );
 
--- Танцювальні події
+-- Таблиця ТанцювальніПодії
 CREATE TABLE ТанцювальніПодії (
     id INT PRIMARY KEY AUTO_INCREMENT,
     користувач_id INT,
@@ -68,3 +68,13 @@ CREATE TABLE ТанцювальніПодії (
     місце_проведення VARCHAR(100),
     FOREIGN KEY (користувач_id) REFERENCES Користувач(id)
 );
+
+-- 🔒 Обмеження з регулярними виразами
+
+-- Ім’я: тільки літери, пробіли, дефіси
+ALTER TABLE Користувач ADD CONSTRAINT name_format
+CHECK (ім’я REGEXP '^[А-Яа-яІіЇїЄєҐґ\\- ]+$');
+
+-- Ціль: тільки українські слова, без цифр
+ALTER TABLE Користувач ADD CONSTRAINT goal_format
+CHECK (ціль REGEXP '^[А-Яа-яІіЇїЄєҐґ ]+$');
