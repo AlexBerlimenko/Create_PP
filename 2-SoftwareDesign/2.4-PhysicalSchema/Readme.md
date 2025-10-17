@@ -12,7 +12,6 @@
 - [DataSchema.json](./DataSchema.json)
 
 
-#### Перевірка
+#### Перевірка JSON Schema:
 
-Перевірка Json Schema:
 ![JsonSchemaValidator_Check.jpg](JsonSchemaValidator_Check.jpg)
