@@ -8,4 +8,4 @@
 
 Після повторної перевірки схема успішно пройшла всі вимоги linting.
 Результати зафіксовано: 
-![Результат фінальної перевірки](DataSchemaModifiedCodeConvertionResult.jpg)
+![Результат фінальної перевірки](DataSchemaModifiedCodeConvetionResult.jpg)
