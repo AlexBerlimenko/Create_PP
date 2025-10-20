@@ -5,6 +5,7 @@ hide circle
 skinparam classAttributeIconSize 0
 
 class "Користувач" {
+  +id : INT <<PK>>
   +ім’я : String
   +вік : Integer
   +алергії : String
@@ -12,6 +13,8 @@ class "Користувач" {
 }
 
 class "ДаніПроЗдоров’я" {
+  +id : INT <<PK>>
+  +користувач_id : INT <<FK>>
   +вага : Float
   +зріст : Integer
   +індекс_маси_тіла : Float
@@ -20,6 +23,8 @@ class "ДаніПроЗдоров’я" {
 }
 
 class "ПланХарчування" {
+  +id : INT <<PK>>
+  +користувач_id : INT <<FK>>
   +сніданок : String
   +обід : String
   +вечеря : String
@@ -27,22 +32,30 @@ class "ПланХарчування" {
 }
 
 class "Рекомендації" {
+  +id : INT <<PK>>
+  +план_id : INT <<FK>>
   +обсяг_води_на_день : Float
   +фізична_активність : String
 }
 
 class "Досягнення" {
+  +id : INT <<PK>>
+  +користувач_id : INT <<FK>>
   +кількість_тренувань : Integer
   +виконані_вправи : String
   +нагороди : String
 }
 
 class "Самоповага" {
+  +id : INT <<PK>>
+  +користувач_id : INT <<FK>>
   +рівень : Float
   +впевненість : String
 }
 
 class "ТанцювальніПодії" {
+  +id : INT <<PK>>
+  +користувач_id : INT <<FK>>
   +назва : String
   +тип_танцю : String
   +дата_проведення : Date
