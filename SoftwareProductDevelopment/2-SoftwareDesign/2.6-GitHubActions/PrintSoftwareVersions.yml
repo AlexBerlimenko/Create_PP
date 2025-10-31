@@ -1,0 +1,16 @@
+name: Software DB Version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  PrintMySQLVersion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install MySQL
+        run: sudo apt-get update && sudo apt-get install -y mysql-server
+
+      - name: Print MySQL Version
+        run: mysql --version

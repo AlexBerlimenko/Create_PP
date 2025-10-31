@@ -1,0 +1,19 @@
+name: Program Code Convention Check
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  LintProgramCode:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Biome (JS Linter)
+        run: npm install --save-dev --save-exact @biomejs/biome
+
+      - name: Run Linter on ProgramCodeModified
+        run: npx @biomejs/biome check ProgramCodeModified.js --apply
