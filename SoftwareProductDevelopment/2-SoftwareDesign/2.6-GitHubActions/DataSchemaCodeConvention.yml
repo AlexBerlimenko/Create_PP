@@ -18,4 +18,4 @@ jobs:
 
       - name: Run SQLFluff Linter
         run: |
-          sqlfluff lint $GITHUB_WORKSPACE/DataSchema.sql --dialect oracle
+          sqlfluff lint $GITHUB_WORKSPACE/DataSchema.sql --dialect mysql

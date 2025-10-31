@@ -1,4 +1,4 @@
-name: Print Software Versions
+name: Software DB Version
 
 on:
   push:
@@ -6,38 +6,11 @@ on:
       - main
 
 jobs:
-  PrintLanguageVersions:
+  PrintMySQLVersion:
     runs-on: ubuntu-latest
     steps:
-      - name: Print Java Version
-        run: java --version
-      - name: Print Node Version
-        run: node --version
-      - name: Print Python Version
-        run: python3 --version
-
-  PrintDBMSVersions:
-    runs-on: ubuntu-latest
-    needs: [PrintLanguageVersions]
-    steps:
-      - name: Install PostgreSQL
-        run: sudo apt-get update && sudo apt-get install -y postgresql
-
       - name: Install MySQL
-        run: sudo apt-get install -y mysql-server
+        run: sudo apt-get update && sudo apt-get install -y mysql-server
 
-      - name: Install MongoDB
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget gnupg
-          wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
-          echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
-          sudo apt-get update
-          sudo apt-get install -y mongodb-org
-
-      - name: Print PostgreSQL Version
-        run: psql --version
       - name: Print MySQL Version
         run: mysql --version
-      - name: Print MongoDB Version
-        run: mongod --version
