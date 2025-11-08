@@ -1,0 +1,63 @@
+@startuml 1-UseCase.puml
+' Title
+title UseCase UML-діаграма
+
+' Layout
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+' ------------------
+' Актори (зовнішні)
+actor "Користувач" as User
+actor "Сервіс електронних\nплатежів\n(Google Pay)" as GooglePay
+actor "Сервіс криптовалютних\nплатежів\n(Binance Pay)" as BinancePay
+actor "Assessment Center\nAPI" as AssessmentAPI
+actor "Google Fit" as GoogleFit
+actor "Edamam Nutrition\nAnalysis API" as EdamamAPI
+actor "Dance Events\nInternational API" as DanceAPI
+
+' ------------------
+' Межа системи
+rectangle "Система здоров'я, харчування та танців" as System {
+  ' Use cases
+  usecase "Авторизувати\nкористувача" as UC_Auth
+  usecase "Оплатити\nпідписку" as UC_Pay
+  usecase "Оплатити підписку\nкриптовалютою" as UC_PayCrypto
+  usecase "Оцінити рівень\nсамоповаги" as UC_SelfEsteem
+  usecase "Перевірити стан\nфіз. здоров'я" as UC_CheckHealth
+  usecase "Отримати персоналізований\nплан харчування" as UC_Nutrition
+  usecase "Отримати новини\nзі світу танців" as UC_DanceNews
+}
+
+' ------------------
+' Взаємодії користувача з прецедентами
+User --> UC_Auth
+User --> UC_Pay
+User --> UC_SelfEsteem
+User --> UC_CheckHealth
+User --> UC_Nutrition
+User --> UC_DanceNews
+
+' Авторизація — ключова служба для більшості прецендентів
+UC_Pay .down.> UC_Auth : <<include>>
+UC_SelfEsteem .down.> UC_Auth : <<include>>
+UC_CheckHealth .down.> UC_Auth : <<include>>
+UC_Nutrition .down.> UC_Auth : <<include>>
+UC_DanceNews .down.> UC_Auth : <<include>>
+
+' Extend: криптоплатіж — альтернативний шлях оплати
+UC_PayCrypto ..> UC_Pay : <<extend>>
+
+' ------------------
+' Взаємодії з зовнішніми сервісами (Actors -> UseCases)
+UC_Pay --> GooglePay
+UC_PayCrypto --> BinancePay
+UC_SelfEsteem --> AssessmentAPI
+UC_CheckHealth --> GoogleFit
+UC_Nutrition --> EdamamAPI
+UC_DanceNews --> DanceAPI
+
+' Декоративний порядок
+hide circle
+@enduml
