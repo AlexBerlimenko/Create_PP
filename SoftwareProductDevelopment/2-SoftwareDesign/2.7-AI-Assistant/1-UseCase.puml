@@ -1,0 +1,48 @@
+@startuml
+' Use Case diagram for food, health and dance software product
+' Based on UML-diagram.jpg
+
+!theme plain
+
+left to right direction
+
+' System boundary
+package "Система здоров'я, харчування та танців" as System {
+  ' Use cases
+  usecase "Авторизувати користувача" as UC_Login
+  usecase "Оцінити рівень самоповаги" as UC_SelfEsteem
+  usecase "Перевірити стан фіз. здоров'я" as UC_PhysHealth
+  usecase "Отримати персоналізований план харчування" as UC_Nutrition
+  usecase "Отримати новини зі світу танців" as UC_DanceNews
+  usecase "Оплатити підписку" as UC_Payment
+  usecase "Оплатити підписку криптовалютою" as UC_CryptoPayment
+}
+
+' Actors
+actor "Користувач" as User
+actor "Google Fit" as GoogleFit
+actor "Edaman Nutrition Analysis API" as EdamanAPI
+actor "Dance Events International Analysis API" as DanceAPI
+actor "Assesment Center API" as AssessmentAPI
+actor "Сервіс електронних платежів\n(Google Pay)" as GooglePay
+actor "Сервіс криптовалютних платежів\n(Binance Pay)" as BinancePay
+
+' Actor to use case relationships
+User -- UC_Login
+
+GoogleFit -- UC_PhysHealth
+EdamanAPI -- UC_Nutrition
+DanceAPI -- UC_DanceNews
+AssessmentAPI -- UC_SelfEsteem
+GooglePay -- UC_Payment
+BinancePay -- UC_CryptoPayment
+
+' Include relationships
+UC_SelfEsteem ..> UC_PhysHealth : <<include>>
+UC_Login ..> UC_Nutrition : <<include>>
+UC_Login ..> UC_DanceNews : <<include>>
+
+' Extend relationships
+UC_Payment <.. UC_CryptoPayment : <<extend>>
+
+@enduml
