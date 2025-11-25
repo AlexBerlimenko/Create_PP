@@ -1,33 +1,35 @@
 -- GeneratePlan_Body.sql
--- Тіло типу ПланХарчування з реалізацією методу генерувати_план
+-- Оновлена реалізація: метод генерувати_план(p_вага, p_ціль) як FUNCTION
 
 CREATE OR REPLACE TYPE BODY ПланХарчування AS
 
-    MEMBER PROCEDURE генерувати_план IS
-        PRAGMA AUTONOMOUS_TRANSACTION;
-        v_вага      FLOAT;
-        v_ціль      VARCHAR2(50);
-        v_user_id   NUMBER := користувач_id;
-        v_bmi       FLOAT;
+    MEMBER FUNCTION генерувати_план(
+        p_вага IN FLOAT,
+        p_ціль IN VARCHAR2
+    ) RETURN NUMBER IS
     BEGIN
-        -- Отримання даних (приклад через запит)
-        SELECT dz.вага, k.ціль, (dz.вага / POWER(dz.зріст/100, 2))
-        INTO v_вага, v_ціль, v_bmi
-        FROM Користувачі k
-        JOIN ДаніПроЗдоров'я dz ON k.id = dz.користувач_id
-        WHERE k.id = v_user_id;
+        -- Перевірки вхідних параметрів
+        IF p_вага IS NULL OR p_вага < 30 OR p_вага > 200 THEN
+            RETURN -1; -- некоректна вага
+        END IF;
+
+        IF p_ціль IS NULL OR LOWER(p_ціль) NOT IN ('схуднення', 'набір маси', 'підтримка') THEN
+            RETURN -2; -- невідома ціль
+        END IF;
 
         -- Логіка генерації плану
-        IF v_ціль = 'схуднення' THEN
+        IF LOWER(p_ціль) = 'схуднення' THEN
             сніданок := 'Яйця з авокадо';
             обід := 'Куряча грудка з овочами';
             вечеря := 'Риба на пару';
             калорійність := 1600;
-        ELSIF v_ціль = 'набір маси' THEN
+
+        ELSIF LOWER(p_ціль) = 'набір маси' THEN
             сніданок := 'Вівсянка з горіхами та медом';
             обід := 'Стейк з картоплею';
             вечеря := 'Білковий коктейль + банан';
             калорійність := 2800;
+
         ELSE
             сніданок := 'Тости з авокадо та яйцем';
             обід := 'Суп з крупами';
@@ -35,24 +37,7 @@ CREATE OR REPLACE TYPE BODY ПланХарчування AS
             калорійність := 2200;
         END IF;
 
-        -- Оновлення запису в БД
-        UPDATE ПланиХарчування
-        SET сніданок = сніданок,
-            обід = обід,
-            вечеря = вечеря,
-            калорійність = калорійність
-        WHERE користувач_id = v_user_id;
-
-        COMMIT;
-        DBMS_OUTPUT.PUT_LINE('План успішно згенеровано для користувача ID=' || v_user_id);
-
-    EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            DBMS_OUTPUT.PUT_LINE('Помилка: не знайдено даних для користувача ID=' || v_user_id);
-            ROLLBACK;
-        WHEN OTHERS THEN
-            DBMS_OUTPUT.PUT_LINE('Невідома помилка при генерації плану');
-            ROLLBACK;
+        RETURN 0; -- успіх
     END генерувати_план;
 
     MEMBER PROCEDURE надати_план IS
@@ -65,7 +50,7 @@ CREATE OR REPLACE TYPE BODY ПланХарчування AS
 
     MEMBER PROCEDURE оновити_план IS
     BEGIN
-        NULL; -- Заглушка
+        NULL; -- заглушка
     END оновити_план;
 
 END;
